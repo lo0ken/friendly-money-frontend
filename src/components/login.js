@@ -23,48 +23,49 @@ class Login extends Component {
 
     render() {
         return (
-        	<div>
-            <form onSubmit={this.handleSubmit}>
-                <h3>Sign In</h3>
+        	<div className="auth-wrapper">
+				<div className="auth-inner">
+					<form onSubmit={this.handleSubmit}>
+						<h3>Sign In</h3>
 
-                <div className="form-group">
-                    <label>Username</label>
-                    <input type="text"
-						   name='username'
-						   value={this.state.username}
-						   onChange={this.handleChange}
-						   className="form-control"
-						   placeholder="Enter username" />
-                </div>
+						<div className="form-group">
+							<label>Username</label>
+							<input type="text"
+								   name='username'
+								   value={this.state.username}
+								   onChange={this.handleChange}
+								   className="form-control"
+								   placeholder="Enter username" />
+						</div>
 
-                <div className="form-group">
-                    <label>Password</label>
-                    <input type="password"
-						   name='password'
-						   value={this.state.password}
-						   onChange={this.handleChange}
-						   className="form-control"
-						   placeholder="Enter password" />
-                </div>
+						<div className="form-group">
+							<label>Password</label>
+							<input type="password"
+								   name='password'
+								   value={this.state.password}
+								   onChange={this.handleChange}
+								   className="form-control"
+								   placeholder="Enter password" />
+						</div>
 
-                <div className="form-group">
-                    <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                        <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
-                    </div>
-                </div>
+						<div className="form-group">
+							<div className="custom-control custom-checkbox">
+								<input type="checkbox" className="custom-control-input" id="customCheck1" />
+								<label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
+							</div>
+						</div>
 
-                <button type="submit" onClick={this.handleSubmit.bind(this)} className="btn btn-primary btn-block">Submit</button>
+						<button type="submit" onClick={this.handleSubmit.bind(this)} className="btn btn-primary btn-block">Submit</button>
 
-				<div className="form-group">
-					<p className="text-center">Don't have account? <Link to="/sign-up">Sign up here</Link></p>
+						<div className="form-group">
+							<p className="text-center">Don't have account? <Link to="/sign-up">Sign up here</Link></p>
+						</div>
+					</form>
+					{this.props.currentUser.username != null && (
+						<Redirect to="/"/>
+					)}
 				</div>
-            </form>
-
-			{this.props.currentUser.username != null && (
-				<Redirect to="/"/>
-			)}
-        	</div>
+			</div>
         );
     }
 }

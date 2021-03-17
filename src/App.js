@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import {connect} from 'react-redux';
 import {getProfileFetch, logoutUser} from './redux/actions';
 import Login from "./components/login";
 import Signup from "./components/signup";
 import Home from "./components/home";
+import Header from "./components/header";
 
+
+export const PrivateRoute = ({component: Component, ...rest}) => (
+    <Route {...rest} render={(props) => (
+        localStorage.getItem('token') ? <Component {...props} /> : <Redirect to="/sign-in"/>
+    )} />
+)
 
 class App extends Component {
   componentDidMount = () => {
@@ -17,12 +24,12 @@ class App extends Component {
   render() {
     return (
           <div className="App">
-            <div className="auth-wrapper">
-              <div className="auth-inner">
+            <Header/>
+
               <Router>
                 <Switch>
 
-                  <Route exact
+                  <PrivateRoute exact
                          path='/'
                          component={Home} />
                   <Route exact path="/sign-in" component={Login} />
@@ -30,8 +37,6 @@ class App extends Component {
                 </Switch>
               </Router>
 
-              </div>
-            </div>
           </div>
     );
   }
